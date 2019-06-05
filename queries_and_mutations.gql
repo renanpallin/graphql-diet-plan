@@ -1,0 +1,118 @@
+mutation {
+    insert_user(objects: { name: "Renan" }) {
+        returning {
+            id
+        }
+    }
+}
+
+mutation {
+    insert_meal_plan(
+        objects: {
+            date_begin: "2019-05-01"
+            date_end: "2019-05-20"
+            user_id: 1
+        }
+    ) {
+        returning {
+            id
+        }
+    }
+}
+
+mutation {
+    insert_meal(objects: { meal_plan_id: 1, time: "12:30:00" }) {
+        returning {
+            id
+        }
+    }
+}
+
+mutation {
+    insert_food_meal(objects: { meal_id: 1, food_id: 346, quantity: 140 }) {
+        returning {
+            quantity
+        }
+    }
+}
+
+mutation {
+    insert_food_meal(objects: { meal_id: 1, food_id: 1, quantity: 200 }) {
+        returning {
+            quantity
+        }
+    }
+}
+
+mutation {
+    insert_food_meal(objects: { meal_id: 2, food_id: 57, quantity: 80 }) {
+        returning {
+            quantity
+        }
+    }
+}
+
+mutation {
+    insert_food_meal(objects: { meal_id: 2, food_id: 597, quantity: 30 }) {
+        returning {
+            quantity
+        }
+    }
+}
+
+mutation {
+    insert_food_meal(objects: { meal_id: 2, food_id: 444, quantity: 450 }) {
+        returning {
+            meal {
+                food_meals {
+                    quantity
+
+                    taco {
+                        description
+                    }
+                }
+            }
+        }
+    }
+}
+
+query {
+    taco(limit: 10, order_by: { protein_g: desc }) {
+        id
+        description
+        protein_g
+    }
+}
+
+query {
+    meal_plan {
+        id
+        date_begin
+        date_end
+        user {
+            id
+            name
+        }
+    }
+}
+
+{
+    user {
+        id
+        name
+        meal_plans {
+            id
+            date_begin
+            date_end
+            meals {
+                time
+                food_meals {
+                    quantity
+                    taco {
+                        description
+                    }
+                }
+            }
+        }
+    }
+}
